@@ -1,10 +1,6 @@
 
 {{>header}}
 
-<div class="navbar">
-    <h1>Cave Explorer</h1>
-</div>
-
 <div class="game-container">
     <div class="start-container">
         <h2 class="start-title">A long time ago...</h2>
@@ -17,26 +13,21 @@
         </div>
         <img class="start-image" src="/images/start.jpg" alt="">
         <div class="start-form">
-            <form action="/">
+            <form action="/" method="POST">
                 <input class="form-text" type="text" placeholder="Explorer Name" required="true">
                 <input class="form-button" value="Start!" type="submit">
             </form>
         </div>
     </div>
 
-    <div class="play-container">
-    </div>
-
-    <div class="over-container">
-    </div>
     <div class="commands-container">
-        <div class="commands-power"></div>
+        <div class="commands-power commands-power-disabled"></div>
         <div class="commands-move">
-            <div class="move-up"><img src="images/triangle.svg" alt=""></div>
-            <div class="move-down"><img src="images/triangle.svg" alt=""></div>
-            <div class="move-right"><img src="images/triangle.svg" alt=""></div>
-            <div class="move-left"><img src="images/triangle.svg" alt=""></div>
-            <div class="move-circle"></div>
+            <div class="move-up"><img src="images/triangle-gray.svg" alt=""></div>
+            <div class="move-down"><img src="images/triangle-gray.svg" alt=""></div>
+            <div class="move-right"><img src="images/triangle-gray.svg" alt=""></div>
+            <div class="move-left"><img src="images/triangle-gray.svg" alt=""></div>
+            <div class="move-circle move-circle-disabled"></div>
         </div>
     </div>
     
