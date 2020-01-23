@@ -1,10 +1,47 @@
 
 {{>header}}
 
-<h1>Hello World!</h1>
+<div class="navbar">
+    <h1>Cave Explorer</h1>
+</div>
 
-<p>
-    This is a boilerplate for Mongo, Express, Handlebars and Node!
-</p>
+<div class="game-container">
+    <div class="start-container">
+        <h2 class="start-title">A long time ago...</h2>
+        <div class="start-text">
+            <p>
+            You are an explorer going deep into a cave, but you forgot your rope and cannot get back. 
+            As you go down, you will find hungry agressive monsters.
+            Just go down hoping to find a safer place to wait for help...
+            </p>
+        </div>
+        <img class="start-image" src="/images/start.jpg" alt="">
+        <div class="start-form">
+            <form action="/">
+                <input class="form-text" type="text" placeholder="Explorer Name" required="true">
+                <input class="form-button" value="Start!" type="submit">
+            </form>
+        </div>
+    </div>
+
+    <div class="play-container">
+    </div>
+
+    <div class="over-container">
+    </div>
+    <div class="commands-container">
+        <div class="commands-power"></div>
+        <div class="commands-move">
+            <div class="move-up"><img src="images/triangle.svg" alt=""></div>
+            <div class="move-down"><img src="images/triangle.svg" alt=""></div>
+            <div class="move-right"><img src="images/triangle.svg" alt=""></div>
+            <div class="move-left"><img src="images/triangle.svg" alt=""></div>
+            <div class="move-circle"></div>
+        </div>
+    </div>
+    
+</div>
+
+
 
 {{>footer}}
