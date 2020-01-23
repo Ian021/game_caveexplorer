@@ -1,0 +1,38 @@
+
+{{>header}}
+
+
+<div class="game-container">
+    <div class="ranking-container">
+        <h2 class="ranking-title">Game Over!</h2>
+        <div class="ranking-display-left"></div>
+        <div class="ranking-display-right"></div>
+        <div class="ranking-play">
+            <form action="/" method="POST">
+                <input type="hidden" value="{{""}}">
+                <input class="form-button" value="Play again!" type="submit">
+            </form>
+        </div>
+    </div>
+
+    <div class="commands-container">
+        <div class="commands-power commands-power-disabled"></div>
+        <div class="commands-move">
+            <div class="move-up"><img src="images/triangle-gray.svg" alt=""></div>
+            <div class="move-down"><img src="images/triangle-gray.svg" alt=""></div>
+            <div class="move-right"><img src="images/triangle-gray.svg" alt=""></div>
+            <div class="move-left"><img src="images/triangle-gray.svg" alt=""></div>
+            <div class="move-circle move-circle-disabled"></div>
+        </div>
+    </div>
+    
+</div>
+
+
+
+
+
+
+
+
+{{>footer}}

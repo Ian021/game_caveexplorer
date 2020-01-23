@@ -124,6 +124,53 @@ h2 {
     --paused:true;
 }
 
+.ranking-container {
+    height: 260px;
+    width: 260px;
+    background-image: url("/images/start.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    border:solid 2px #999999;
+    border-radius: 4px;
+    padding:15px;
+    display: grid;
+    grid-template-areas: 
+    "title title"
+    "ranking-left ranking-right"
+    "play play"
+}
+
+.ranking-title {
+    grid-area: title;
+    margin-bottom: auto;
+}
+
+.ranking-display-left {
+    width: 91px;
+    grid-area: ranking-left;
+    background-color:#070707cc;
+    height:150px;
+    border:solid 2px #999999;
+    border-radius: 4px;
+    padding:15px;
+}
+
+.ranking-display-right {
+    width: 91px;
+    grid-area: ranking-right;
+    background-color:#070707cc;
+    height:150px;
+    border:solid 2px #999999;
+    border-radius: 4px;
+    padding:15px;
+    margin-left: auto;
+}
+
+.ranking-play {
+    margin-top: auto;
+    grid-area: play;
+}
+
 .commands-container {
     margin-top: 26px;
     display: grid;
