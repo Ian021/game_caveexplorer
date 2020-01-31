@@ -1,8 +1,7 @@
 
-/* ------------------------------------- PAUSE -------------------------------------*/
 let gamePaused = false;
 
-function pause() {
+window.pause = function () {
     var x = document.getElementsByClassName("play-pause")[0];
     if (gamePaused === true) {
         x.style.backgroundColor = "#07070700"
@@ -11,4 +10,4 @@ function pause() {
         x.style.backgroundColor = "#07070780"
         gamePaused = true
     }
-  }
+}
