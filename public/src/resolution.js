@@ -1,0 +1,20 @@
+export const resolution = {
+    HD:{
+        GAME_WIDTH:1200,
+        GAME_HEIGHT:720,
+        size_x:15,
+        size_y:9
+    },
+    FULLHD:{
+        GAME_WIDTH:1920,
+        GAME_HEIGHT:1080,
+        size_x:16,
+        size_y:9
+    },
+    SQUARE:{
+        GAME_WIDTH:286,
+        GAME_HEIGHT:286,
+        size_x:16,
+        size_y:16
+    }
+}

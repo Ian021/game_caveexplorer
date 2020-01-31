@@ -1,5 +1,5 @@
 {
-  "name": "GameJS",
+  "name": "gamejs",
   "version": "1.0.0",
   "description": "Simple Javascript game with basic html and css",
   "main": "server.js",
