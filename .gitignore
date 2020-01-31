@@ -1,2 +1,5 @@
 node_modules
 design
+.cache
+dist
+src_parcel

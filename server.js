@@ -17,6 +17,7 @@ const mainRoutes      = require('./routes'),
 /* ------------------------------------- EXPRESS -------------------------------------*/
 app = express()
 app.use(express.static("public"))
+app.use(express.static("dist"))
 
 /* ------------------------------------- HANDLEBARS -------------------------------------*/
 app.engine('hbs',hbs({extname: 'hbs'}));
