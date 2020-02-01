@@ -5,8 +5,6 @@ import { Scenario } from './scenario'
 import { resolution } from './resolution'
 import { Player } from './player'
 import { InputHandler } from './input'
-
-var dom = require('./dom.js')
 /*---------------------------------- ----------------------------------*/
 
 
