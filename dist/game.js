@@ -173,12 +173,6 @@ function () {
       }
     }
 
-    this.size = size_x * size_y;
-    this.maxBlocks = Math.round(this.size * this.density);
-    this.seedBlocksDensity = this.density * this.dispersion;
-    this.seedBlocks = 0;
-    this.blockLocations = [];
-    this.blocks = 0;
     this.gridMap;
 
     this._generateMap();
@@ -208,46 +202,53 @@ function () {
   }, {
     key: "_generateSeedMap",
     value: function _generateSeedMap() {
-      var _this = this;
+      var seedBlocksDensity = this.density * this.dispersion; // let seedBlocks = 0
 
+      var seedBlockLocations = [];
+      var blocks = 0;
       var blankMap = new Array(this.size_x).fill(new Array(this.size_y).fill(0));
 
-      if (this.seedBlocksDensity > 0) {
-        while (this.blocks === 0) {
+      if (seedBlocksDensity > 0) {
+        while (seedBlockLocations.length === 0) {
           this.gridMap = blankMap.map(function (row, row_index) {
             return row.map(function (col, col_index) {
               var rand = Math.random();
 
-              if (rand > _this.seedBlocksDensity) {
+              if (rand > seedBlocksDensity) {
                 return 0;
               } else {
-                _this.seedBlocks++;
-
-                _this.blockLocations.push({
+                // seedBlocks++
+                seedBlockLocations.push({
                   x: row_index,
                   y: col_index
                 });
-
                 return 1;
               }
             });
           });
-          this.blocks = this.blockLocations.length;
         }
       }
+
+      return {
+        blockLocations: seedBlockLocations,
+        blocks: seedBlockLocations.length
+      };
     }
   }, {
     key: "_generateMap",
     value: function _generateMap() {
-      var _this2 = this;
+      var _this = this;
 
-      this._generateSeedMap();
+      var _this$_generateSeedMa = this._generateSeedMap(),
+          blocks = _this$_generateSeedMa.blocks,
+          blockLocations = _this$_generateSeedMa.blockLocations;
 
-      if (this.seedBlocks > 0) {
+      var maxBlocks = Math.round(this.size_x * this.size_y * this.density);
+
+      if (blocks > 0) {
         var _loop = function _loop() {
-          var propagation = Math.min(_this2.maxPropagation, Math.max((_this2.maxBlocks - _this2.blocks) / (4 * _this2.blocks), _this2.minPropagation)); // console.log(propagation)
-
-          _this2.blockLocations.forEach(function (location) {
+          var propagation = Math.min(_this.maxPropagation, Math.max((maxBlocks - blocks) / (4 * blocks), _this.minPropagation));
+          blockLocations.forEach(function (location) {
             var neighboors = [{
               x: location.x,
               y: location.y + 1
@@ -262,12 +263,11 @@ function () {
               y: location.y
             }];
             neighboors.forEach(function (element) {
-              if (element.x >= 0 & element.x < _this2.size_x & element.y >= 0 & element.y < _this2.size_y) {
-                if (_this2.gridMap[element.x][element.y] === 0) {
+              if (element.x >= 0 & element.x < _this.size_x & element.y >= 0 & element.y < _this.size_y) {
+                if (_this.gridMap[element.x][element.y] === 0) {
                   if (Math.random() < propagation) {
-                    _this2.gridMap[element.x][element.y] = 1;
-
-                    _this2.blockLocations.push({
+                    _this.gridMap[element.x][element.y] = 1;
+                    blockLocations.push({
                       x: element.x,
                       y: element.y
                     });
@@ -276,11 +276,10 @@ function () {
               }
             });
           });
-
-          _this2.blocks = _this2.blockLocations.length;
+          blocks = blockLocations.length;
         };
 
-        while (this.blocks < this.maxBlocks) {
+        while (blocks < maxBlocks) {
           _loop();
         }
       }
@@ -316,7 +315,7 @@ function () {
           if (this.gridMap[x][y] === 1) {
             ctx.fillStyle = 'rgb(64,64,64)';
             ctx.fillRect(grid_element_size * x, grid_element_size * y, grid_element_size, grid_element_size);
-          } else if (this.gridMap[x][y] === 100101) {
+          } else if (this.gridMap[x][y] === player.code) {
             ctx.fillStyle = 'rgb(64,64,128)';
             ctx.fillRect(grid_element_size * x, grid_element_size * y, grid_element_size, grid_element_size);
           }
@@ -349,7 +348,7 @@ var resolution = {
     size_x: 16,
     size_y: 9
   },
-  SQUARE: {
+  SQUARE_MOBILE: {
     GAME_WIDTH: 290,
     GAME_HEIGHT: 290,
     size_x: 15,
@@ -425,7 +424,41 @@ function () {
   function InputHandler(player) {
     _classCallCheck(this, InputHandler);
 
-    document.addEventListener('keydown', function (event) {
+    this.gamePaused = false;
+    this.enableCommands();
+    document.addEventListener('keydown', this.spacebarPause.bind(this));
+    document.addEventListener('keyup', this.stopCommand);
+  }
+
+  _createClass(InputHandler, [{
+    key: "enableCommands",
+    value: function enableCommands() {
+      document.addEventListener('keydown', this.keyboardCommands);
+      document.querySelectorAll(".commands-move img").forEach(function (element) {
+        element.classList.remove("commands-move-disabled");
+      });
+      document.querySelector(".commands-power").classList.remove("commands-power-disabled");
+      document.querySelector(".move-circle").classList.remove("move-circle-disabled");
+      document.querySelector(".pause-text").classList.add("pause-text-hide");
+    }
+  }, {
+    key: "spacebarPause",
+    value: function spacebarPause() {
+      switch (event.keyCode) {
+        case 32:
+          this.pause();
+          break;
+      }
+    }
+  }, {
+    key: "stopCommand",
+    value: function stopCommand(event) {
+      player.speed.x = 0;
+      player.speed.y = 0;
+    }
+  }, {
+    key: "keyboardCommands",
+    value: function keyboardCommands(event) {
       switch (event.keyCode) {
         case 37:
           player.speed.x = -1;
@@ -443,39 +476,61 @@ function () {
           player.speed.y = 1;
           break;
       }
-    });
-    document.addEventListener('keyup', function (e) {
-      player.speed.x = 0;
-      player.speed.y = 0;
-    });
-  }
-
-  _createClass(InputHandler, [{
+    }
+  }, {
     key: "buttonDirection",
     value: function buttonDirection(direction) {
-      switch (direction) {
-        case "LEFT":
-          player.speed.x = -1;
-          break;
+      if (!this.gamePaused) {
+        switch (direction) {
+          case "LEFT":
+            player.speed.x = -1;
+            break;
 
-        case "UP":
-          player.speed.y = -1;
-          break;
+          case "UP":
+            player.speed.y = -1;
+            break;
 
-        case "RIGHT":
-          player.speed.x = 1;
-          break;
+          case "RIGHT":
+            player.speed.x = 1;
+            break;
 
-        case "DOWN":
-          player.speed.y = 1;
-          break;
+          case "DOWN":
+            player.speed.y = 1;
+            break;
+        }
       }
     }
   }, {
-    key: "buttonRelease",
-    value: function buttonRelease() {
-      player.speed.x = 0;
-      player.speed.y = 0;
+    key: "usePower",
+    value: function usePower() {
+      window.location.replace("/ranking");
+    }
+  }, {
+    key: "pause",
+    value: function pause() {
+      var x = document.getElementsByClassName("play-pause")[0];
+
+      if (this.gamePaused === true) {
+        x.style.backgroundColor = "#07070700";
+        this.gamePaused = false;
+        this.enableCommands();
+      } else {
+        this.disableCommands();
+        this.stopCommand();
+        x.style.backgroundColor = "#07070780";
+        this.gamePaused = true;
+      }
+    }
+  }, {
+    key: "disableCommands",
+    value: function disableCommands() {
+      document.removeEventListener('keydown', this.keyboardCommands);
+      document.querySelectorAll(".commands-move img").forEach(function (element) {
+        element.classList.add("commands-move-disabled");
+      });
+      document.querySelector(".commands-power").classList.add("commands-power-disabled");
+      document.querySelector(".move-circle").classList.add("move-circle-disabled");
+      document.querySelector(".pause-text").classList.remove("pause-text-hide");
     }
   }]);
 
@@ -483,20 +538,6 @@ function () {
 }();
 
 exports.InputHandler = InputHandler;
-},{}],"dom.js":[function(require,module,exports) {
-var gamePaused = false;
-
-window.pause = function () {
-  var x = document.getElementsByClassName("play-pause")[0];
-
-  if (gamePaused === true) {
-    x.style.backgroundColor = "#07070700";
-    gamePaused = false;
-  } else {
-    x.style.backgroundColor = "#07070780";
-    gamePaused = true;
-  }
-};
 },{}],"game.js":[function(require,module,exports) {
 "use strict";
 
@@ -512,15 +553,13 @@ var _input = require("./input");
 // Only called for the play page
 
 /*---------------------------------- ----------------------------------*/
-var dom = require('./dom.js');
+
 /*---------------------------------- ----------------------------------*/
-
-
-var _resolution$SQUARE = _resolution.resolution.SQUARE,
-    GAME_WIDTH = _resolution$SQUARE.GAME_WIDTH,
-    GAME_HEIGHT = _resolution$SQUARE.GAME_HEIGHT,
-    size_x = _resolution$SQUARE.size_x,
-    size_y = _resolution$SQUARE.size_y;
+var _resolution$SQUARE_MO = _resolution.resolution.SQUARE_MOBILE,
+    GAME_WIDTH = _resolution$SQUARE_MO.GAME_WIDTH,
+    GAME_HEIGHT = _resolution$SQUARE_MO.GAME_HEIGHT,
+    size_x = _resolution$SQUARE_MO.size_x,
+    size_y = _resolution$SQUARE_MO.size_y;
 var scenario = new _scenario.Scenario(size_x, size_y, {
   density: 0.15,
   dispersion: 0.2,
@@ -553,7 +592,7 @@ function gameLoop(timestamp) {
 }
 
 gameLoop(0);
-},{"./scenario":"scenario.js","./resolution":"resolution.js","./player":"player.js","./input":"input.js","./dom.js":"dom.js"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./scenario":"scenario.js","./resolution":"resolution.js","./player":"player.js","./input":"input.js"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;

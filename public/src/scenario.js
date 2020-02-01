@@ -11,13 +11,6 @@ export class Scenario {
             if(optional_parameters.minPropagation){this.minPropagation = optional_parameters.minPropagation}else{this.minPropagation=0.25}
         }
 
-        this.size = size_x*size_y
-        this.maxBlocks = Math.round(this.size*this.density)
-
-        this.seedBlocksDensity = this.density*this.dispersion
-        this.seedBlocks = 0
-        this.blockLocations = []
-        this.blocks = 0
         this.gridMap
 
         this._generateMap()
@@ -44,47 +37,55 @@ export class Scenario {
     }
 
     _generateSeedMap(){
+        let seedBlocksDensity = this.density*this.dispersion
+        // let seedBlocks = 0
+        let seedBlockLocations = []
+        let blocks = 0
         
         let blankMap = new Array(this.size_x).fill(new Array(this.size_y).fill(0))
 
-        if (this.seedBlocksDensity > 0) {
-            while (this.blocks === 0){
+        if (seedBlocksDensity > 0) {
+            while (seedBlockLocations.length === 0){
                 this.gridMap = blankMap.map((row,row_index)=>{
                     return(row.map((col,col_index)=>{
                         let rand = Math.random()
-                        if(rand > this.seedBlocksDensity){
+                        if(rand > seedBlocksDensity){
                             return(0)
                         } else {
-                            this.seedBlocks++
-                            this.blockLocations.push({x:row_index,y:col_index})
+                            // seedBlocks++
+                            seedBlockLocations.push({x:row_index,y:col_index})
                             return(1)
                         }
                     }))
                 })
-                this.blocks = this.blockLocations.length
             }
         }
-        
+        return {
+            blockLocations: seedBlockLocations, 
+            blocks: seedBlockLocations.length
+        }
     }
 
 
     _generateMap(){
-        this._generateSeedMap()
 
-        if(this.seedBlocks > 0){
+        let {blocks, blockLocations} = this._generateSeedMap()
 
-            while(this.blocks < this.maxBlocks){
+        let maxBlocks = Math.round(this.size_x*this.size_y*this.density)
+
+        if(blocks > 0){
+
+            while(blocks < maxBlocks){
                 
                 let propagation = Math.min(
                     this.maxPropagation,
                     Math.max(
-                        (this.maxBlocks - this.blocks)/(4*this.blocks),
+                        (maxBlocks - blocks)/(4*blocks),
                         this.minPropagation
                     )
                 )
                 
-                // console.log(propagation)
-                this.blockLocations.forEach(location =>{
+                blockLocations.forEach(location =>{
                     let neighboors = [{x:location.x,y:location.y+1},
                                     {x:location.x+1,y:location.y},
                                     {x:location.x,y:location.y-1},
@@ -94,13 +95,13 @@ export class Scenario {
                             if(this.gridMap[element.x][element.y] === 0) {
                                 if(Math.random() < propagation) {
                                     this.gridMap[element.x][element.y] = 1
-                                    this.blockLocations.push({x:element.x,y:element.y})
+                                    blockLocations.push({x:element.x,y:element.y})
                                 }
                             }
                         }
                     })
                 })
-                this.blocks = this.blockLocations.length
+                blocks = blockLocations.length
             }
         }
     }
@@ -144,7 +145,7 @@ export class Scenario {
                         grid_element_size*y,
                         grid_element_size,
                         grid_element_size);
-                } else if (this.gridMap[x][y]===100101) {
+                } else if (this.gridMap[x][y]===player.code) {
                     ctx.fillStyle = 'rgb(64,64,128)'
                     ctx.fillRect(
                         grid_element_size*x,
@@ -155,5 +156,4 @@ export class Scenario {
             }
         }
     }
-
 }
