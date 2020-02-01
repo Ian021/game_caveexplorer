@@ -1,16 +1,328 @@
-parcelRequire=function(e,r,t,n){var i,o="function"==typeof parcelRequire&&parcelRequire,u="function"==typeof require&&require;function f(t,n){if(!r[t]){if(!e[t]){var i="function"==typeof parcelRequire&&parcelRequire;if(!n&&i)return i(t,!0);if(o)return o(t,!0);if(u&&"string"==typeof t)return u(t);var c=new Error("Cannot find module '"+t+"'");throw c.code="MODULE_NOT_FOUND",c}p.resolve=function(r){return e[t][1][r]||r},p.cache={};var l=r[t]=new f.Module(t);e[t][0].call(l.exports,p,l,l.exports,this)}return r[t].exports;function p(e){return f(p.resolve(e))}}f.isParcelRequire=!0,f.Module=function(e){this.id=e,this.bundle=f,this.exports={}},f.modules=e,f.cache=r,f.parent=o,f.register=function(r,t){e[r]=[function(e,r){r.exports=t},{}]};for(var c=0;c<t.length;c++)try{f(t[c])}catch(e){i||(i=e)}if(t.length){var l=f(t[t.length-1]);"object"==typeof exports&&"undefined"!=typeof module?module.exports=l:"function"==typeof define&&define.amd?define(function(){return l}):n&&(this[n]=l)}if(parcelRequire=f,i)throw i;return f}({"i5FY":[function(require,module,exports) {
-"use strict";function i(t){return(i="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(i){return typeof i}:function(i){return i&&"function"==typeof Symbol&&i.constructor===Symbol&&i!==Symbol.prototype?"symbol":typeof i})(t)}function t(i,t){if(!(i instanceof t))throw new TypeError("Cannot call a class as a function")}function o(i,t){for(var o=0;o<t.length;o++){var e=t[o];e.enumerable=e.enumerable||!1,e.configurable=!0,"value"in e&&(e.writable=!0),Object.defineProperty(i,e.key,e)}}function e(i,t,e){return t&&o(i.prototype,t),e&&o(i,e),i}Object.defineProperty(exports,"__esModule",{value:!0}),exports.Scenario=void 0;var s=function(){function o(i,e,s){t(this,o);var n=this.checkInput(i,e,s);"TRUE"!==n?console.log(n):(this.size_x=i,this.size_y=e,s.density?this.density=s.density:this.density=.2,s.dispersion?this.dispersion=s.dispersion:this.dispersion=1,s.maxPropagation?this.maxPropagation=s.maxPropagation:this.maxPropagation=1,s.minPropagation?this.minPropagation=s.minPropagation:this.minPropagation=.25),this.size=i*e,this.maxBlocks=Math.round(this.size*this.density),this.seedBlocksDensity=this.density*this.dispersion,this.seedBlocks=0,this.blockLocations=[],this.blocks=0,this.gridMap,this._generateMap()}return e(o,[{key:"checkInput",value:function(t,o,e){return"number"==typeof t&"number"==typeof o&"object"===i(e)?t>0&o>0?t%1==0&o%1==0?"TRUE":"Must use integers: size_x and size_y!":"Must be Greater than zero: size_x and size_y!":"size_x and size_y Must be Natural Numbers and optional_parameters Must be an object. received "+JSON.stringify({size_x:i(t),size_y:i(o),optional_parameters:i(e)})}},{key:"_generateSeedMap",value:function(){var i=this,t=new Array(this.size_x).fill(new Array(this.size_y).fill(0));if(this.seedBlocksDensity>0)for(;0===this.blocks;)this.gridMap=t.map(function(t,o){return t.map(function(t,e){return Math.random()>i.seedBlocksDensity?0:(i.seedBlocks++,i.blockLocations.push({x:o,y:e}),1)})}),this.blocks=this.blockLocations.length}},{key:"_generateMap",value:function(){var i=this;if(this._generateSeedMap(),this.seedBlocks>0)for(var t=function(){var t=Math.min(i.maxPropagation,Math.max((i.maxBlocks-i.blocks)/(4*i.blocks),i.minPropagation));i.blockLocations.forEach(function(o){[{x:o.x,y:o.y+1},{x:o.x+1,y:o.y},{x:o.x,y:o.y-1},{x:o.x-1,y:o.y}].forEach(function(o){o.x>=0&o.x<i.size_x&o.y>=0&o.y<i.size_y&&0===i.gridMap[o.x][o.y]&&Math.random()<t&&(i.gridMap[o.x][o.y]=1,i.blockLocations.push({x:o.x,y:o.y}))})}),i.blocks=i.blockLocations.length};this.blocks<this.maxBlocks;)t()}},{key:"positionPlayer",value:function(i){i.position.x=Math.round(this.size_x/2-1),i.position.y=Math.round(this.size_y/2-1),this.gridMap[i.position.x][i.position.y]=i.code}},{key:"movePlayer",value:function(i,t,o){0!==t&&!1===i.moving&&i.position.x+i.speed.x<this.size_x&&i.position.x+i.speed.x>=0&&i.position.y+i.speed.y<this.size_y&&i.position.y+i.speed.y>=0&&0===this.gridMap[i.position.x+i.speed.x][i.position.y+i.speed.y]&&(this.gridMap[i.position.x][i.position.y]=0,this.gridMap[i.position.x+i.speed.x][i.position.y+i.speed.y]=i.code,i.position.x=i.position.x+i.speed.x,i.position.y=i.position.y+i.speed.y,i.moving=!0,i.lastMove=o)}},{key:"draw",value:function(i,t,o,e){for(var s=0;s<t;s++)for(var n=0;n<o;n++)1===this.gridMap[s][n]?(i.fillStyle="rgb(64,64,64)",i.fillRect(e*s,e*n,e,e)):100101===this.gridMap[s][n]&&(i.fillStyle="rgb(64,64,128)",i.fillRect(e*s,e*n,e,e))}}]),o}();exports.Scenario=s;
-},{}],"PIPh":[function(require,module,exports) {
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.resolution=void 0;var e={HD:{GAME_WIDTH:1200,GAME_HEIGHT:720,size_x:15,size_y:9},FULLHD:{GAME_WIDTH:1920,GAME_HEIGHT:1080,size_x:16,size_y:9},SQUARE:{GAME_WIDTH:286,GAME_HEIGHT:286,size_x:16,size_y:16}};exports.resolution=e;
-},{}],"qbJK":[function(require,module,exports) {
-"use strict";function e(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function t(e,t){for(var o=0;o<t.length;o++){var n=t[o];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}function o(e,o,n){return o&&t(e.prototype,o),n&&t(e,n),e}Object.defineProperty(exports,"__esModule",{value:!0}),exports.Player=void 0;var n=function(){function t(){e(this,t),this.code=100101,this.health=100,this.moving=!1,this.lastMove=0,this.speed={module:200,x:0,y:0},this.position={x:0,y:0}}return o(t,[{key:"move",value:function(e){e-this.lastMove>this.speed.module&&(this.moving=!1)}}]),t}();exports.Player=n;
-},{}],"efjR":[function(require,module,exports) {
-"use strict";function e(e,n){if(!(e instanceof n))throw new TypeError("Cannot call a class as a function")}function n(e,n){for(var t=0;t<n.length;t++){var a=n[t];a.enumerable=a.enumerable||!1,a.configurable=!0,"value"in a&&(a.writable=!0),Object.defineProperty(e,a.key,a)}}function t(e,t,a){return t&&n(e.prototype,t),a&&n(e,a),e}Object.defineProperty(exports,"__esModule",{value:!0}),exports.InputHandler=void 0;var a=function(){function n(t){e(this,n),document.addEventListener("keydown",function(e){switch(e.keyCode){case 37:t.speed.x=-1;break;case 38:t.speed.y=-1;break;case 39:t.speed.x=1;break;case 40:t.speed.y=1}}),document.addEventListener("keyup",function(e){t.speed.x=0,t.speed.y=0})}return t(n,[{key:"buttonDirection",value:function(e){switch(e){case"LEFT":player.speed.x=-1;break;case"UP":player.speed.y=-1;break;case"RIGHT":player.speed.x=1;break;case"DOWN":player.speed.y=1}}},{key:"buttonRelease",value:function(){player.speed.x=0,player.speed.y=0}}]),n}();exports.InputHandler=a;
-},{}],"QcRT":[function(require,module,exports) {
-"use strict";var e=require("./scenario"),r=require("./resolution"),t=require("./player"),i=require("./input"),a=r.resolution.SQUARE,n=a.GAME_WIDTH,o=a.GAME_HEIGHT,l=a.size_x,u=a.size_y,s=new e.Scenario(l,u,{density:.15,dispersion:.2,maxPropagation:.5,minPropagation:.05});window.player=new t.Player(p),s.positionPlayer(player),window.input=new i.InputHandler(player);var p=o/u,y=document.getElementById("gameScreen"),d=y.getContext("2d");y.style.backgroundColor="rgba(200,200,50,0.5)",y.setAttribute("width",n),y.setAttribute("height",o);var c=0;function m(e){var r=e-c;c=e,d.clearRect(0,0,n,o),s.movePlayer(player,r,e),player.move(e),s.draw(d,l,u,p),requestAnimationFrame(m)}m(0);
-},{"./scenario":"i5FY","./resolution":"PIPh","./player":"qbJK","./input":"efjR"}],"fRxd":[function(require,module,exports) {
-var a=!1;window.pause=function(){var e=document.getElementsByClassName("play-pause")[0];!0===a?(e.style.backgroundColor="#07070700",a=!1):(e.style.backgroundColor="#07070780",a=!0)};
-},{}],"Focm":[function(require,module,exports) {
-var e=require("./game.js"),r=require("./dom.js");
-},{"./game.js":"QcRT","./dom.js":"fRxd"}]},{},["Focm"], null)
+// modules are defined as an array
+// [ module function, map of requires ]
+//
+// map of requires is short require name -> numeric require
+//
+// anything defined in a previous bundle is accessed via the
+// orig method which is the require for previous bundles
+parcelRequire = (function (modules, cache, entry, globalName) {
+  // Save the require from previous bundle to this closure if any
+  var previousRequire = typeof parcelRequire === 'function' && parcelRequire;
+  var nodeRequire = typeof require === 'function' && require;
+
+  function newRequire(name, jumped) {
+    if (!cache[name]) {
+      if (!modules[name]) {
+        // if we cannot find the module within our internal map or
+        // cache jump to the current global require ie. the last bundle
+        // that was added to the page.
+        var currentRequire = typeof parcelRequire === 'function' && parcelRequire;
+        if (!jumped && currentRequire) {
+          return currentRequire(name, true);
+        }
+
+        // If there are other bundles on this page the require from the
+        // previous one is saved to 'previousRequire'. Repeat this as
+        // many times as there are bundles until the module is found or
+        // we exhaust the require chain.
+        if (previousRequire) {
+          return previousRequire(name, true);
+        }
+
+        // Try the node require function if it exists.
+        if (nodeRequire && typeof name === 'string') {
+          return nodeRequire(name);
+        }
+
+        var err = new Error('Cannot find module \'' + name + '\'');
+        err.code = 'MODULE_NOT_FOUND';
+        throw err;
+      }
+
+      localRequire.resolve = resolve;
+      localRequire.cache = {};
+
+      var module = cache[name] = new newRequire.Module(name);
+
+      modules[name][0].call(module.exports, localRequire, module, module.exports, this);
+    }
+
+    return cache[name].exports;
+
+    function localRequire(x){
+      return newRequire(localRequire.resolve(x));
+    }
+
+    function resolve(x){
+      return modules[name][1][x] || x;
+    }
+  }
+
+  function Module(moduleName) {
+    this.id = moduleName;
+    this.bundle = newRequire;
+    this.exports = {};
+  }
+
+  newRequire.isParcelRequire = true;
+  newRequire.Module = Module;
+  newRequire.modules = modules;
+  newRequire.cache = cache;
+  newRequire.parent = previousRequire;
+  newRequire.register = function (id, exports) {
+    modules[id] = [function (require, module) {
+      module.exports = exports;
+    }, {}];
+  };
+
+  var error;
+  for (var i = 0; i < entry.length; i++) {
+    try {
+      newRequire(entry[i]);
+    } catch (e) {
+      // Save first error but execute all entries
+      if (!error) {
+        error = e;
+      }
+    }
+  }
+
+  if (entry.length) {
+    // Expose entry point to Node, AMD or browser globals
+    // Based on https://github.com/ForbesLindesay/umd/blob/master/template.js
+    var mainExports = newRequire(entry[entry.length - 1]);
+
+    // CommonJS
+    if (typeof exports === "object" && typeof module !== "undefined") {
+      module.exports = mainExports;
+
+    // RequireJS
+    } else if (typeof define === "function" && define.amd) {
+     define(function () {
+       return mainExports;
+     });
+
+    // <script>
+    } else if (globalName) {
+      this[globalName] = mainExports;
+    }
+  }
+
+  // Override the current require with this new one
+  parcelRequire = newRequire;
+
+  if (error) {
+    // throw error from earlier, _after updating parcelRequire_
+    throw error;
+  }
+
+  return newRequire;
+})({"index.js":[function(require,module,exports) {
+// Not related to game logic
+// Called at the footer partial for all pages
+},{}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var global = arguments[3];
+var OVERLAY_ID = '__parcel__error__overlay__';
+var OldModule = module.bundle.Module;
+
+function Module(moduleName) {
+  OldModule.call(this, moduleName);
+  this.hot = {
+    data: module.bundle.hotData,
+    _acceptCallbacks: [],
+    _disposeCallbacks: [],
+    accept: function (fn) {
+      this._acceptCallbacks.push(fn || function () {});
+    },
+    dispose: function (fn) {
+      this._disposeCallbacks.push(fn);
+    }
+  };
+  module.bundle.hotData = null;
+}
+
+module.bundle.Module = Module;
+var checkedAssets, assetsToAccept;
+var parent = module.bundle.parent;
+
+if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
+  var hostname = "" || location.hostname;
+  var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58267" + '/');
+
+  ws.onmessage = function (event) {
+    checkedAssets = {};
+    assetsToAccept = [];
+    var data = JSON.parse(event.data);
+
+    if (data.type === 'update') {
+      var handled = false;
+      data.assets.forEach(function (asset) {
+        if (!asset.isNew) {
+          var didAccept = hmrAcceptCheck(global.parcelRequire, asset.id);
+
+          if (didAccept) {
+            handled = true;
+          }
+        }
+      }); // Enable HMR for CSS by default.
+
+      handled = handled || data.assets.every(function (asset) {
+        return asset.type === 'css' && asset.generated.js;
+      });
+
+      if (handled) {
+        console.clear();
+        data.assets.forEach(function (asset) {
+          hmrApply(global.parcelRequire, asset);
+        });
+        assetsToAccept.forEach(function (v) {
+          hmrAcceptRun(v[0], v[1]);
+        });
+      } else if (location.reload) {
+        // `location` global exists in a web worker context but lacks `.reload()` function.
+        location.reload();
+      }
+    }
+
+    if (data.type === 'reload') {
+      ws.close();
+
+      ws.onclose = function () {
+        location.reload();
+      };
+    }
+
+    if (data.type === 'error-resolved') {
+      console.log('[parcel] ✨ Error resolved');
+      removeErrorOverlay();
+    }
+
+    if (data.type === 'error') {
+      console.error('[parcel] 🚨  ' + data.error.message + '\n' + data.error.stack);
+      removeErrorOverlay();
+      var overlay = createErrorOverlay(data);
+      document.body.appendChild(overlay);
+    }
+  };
+}
+
+function removeErrorOverlay() {
+  var overlay = document.getElementById(OVERLAY_ID);
+
+  if (overlay) {
+    overlay.remove();
+  }
+}
+
+function createErrorOverlay(data) {
+  var overlay = document.createElement('div');
+  overlay.id = OVERLAY_ID; // html encode message and stack trace
+
+  var message = document.createElement('div');
+  var stackTrace = document.createElement('pre');
+  message.innerText = data.error.message;
+  stackTrace.innerText = data.error.stack;
+  overlay.innerHTML = '<div style="background: black; font-size: 16px; color: white; position: fixed; height: 100%; width: 100%; top: 0px; left: 0px; padding: 30px; opacity: 0.85; font-family: Menlo, Consolas, monospace; z-index: 9999;">' + '<span style="background: red; padding: 2px 4px; border-radius: 2px;">ERROR</span>' + '<span style="top: 2px; margin-left: 5px; position: relative;">🚨</span>' + '<div style="font-size: 18px; font-weight: bold; margin-top: 20px;">' + message.innerHTML + '</div>' + '<pre>' + stackTrace.innerHTML + '</pre>' + '</div>';
+  return overlay;
+}
+
+function getParents(bundle, id) {
+  var modules = bundle.modules;
+
+  if (!modules) {
+    return [];
+  }
+
+  var parents = [];
+  var k, d, dep;
+
+  for (k in modules) {
+    for (d in modules[k][1]) {
+      dep = modules[k][1][d];
+
+      if (dep === id || Array.isArray(dep) && dep[dep.length - 1] === id) {
+        parents.push(k);
+      }
+    }
+  }
+
+  if (bundle.parent) {
+    parents = parents.concat(getParents(bundle.parent, id));
+  }
+
+  return parents;
+}
+
+function hmrApply(bundle, asset) {
+  var modules = bundle.modules;
+
+  if (!modules) {
+    return;
+  }
+
+  if (modules[asset.id] || !bundle.parent) {
+    var fn = new Function('require', 'module', 'exports', asset.generated.js);
+    asset.isNew = !modules[asset.id];
+    modules[asset.id] = [fn, asset.deps];
+  } else if (bundle.parent) {
+    hmrApply(bundle.parent, asset);
+  }
+}
+
+function hmrAcceptCheck(bundle, id) {
+  var modules = bundle.modules;
+
+  if (!modules) {
+    return;
+  }
+
+  if (!modules[id] && bundle.parent) {
+    return hmrAcceptCheck(bundle.parent, id);
+  }
+
+  if (checkedAssets[id]) {
+    return;
+  }
+
+  checkedAssets[id] = true;
+  var cached = bundle.cache[id];
+  assetsToAccept.push([bundle, id]);
+
+  if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
+    return true;
+  }
+
+  return getParents(global.parcelRequire, id).some(function (id) {
+    return hmrAcceptCheck(global.parcelRequire, id);
+  });
+}
+
+function hmrAcceptRun(bundle, id) {
+  var cached = bundle.cache[id];
+  bundle.hotData = {};
+
+  if (cached) {
+    cached.hot.data = bundle.hotData;
+  }
+
+  if (cached && cached.hot && cached.hot._disposeCallbacks.length) {
+    cached.hot._disposeCallbacks.forEach(function (cb) {
+      cb(bundle.hotData);
+    });
+  }
+
+  delete bundle.cache[id];
+  bundle(id);
+  cached = bundle.cache[id];
+
+  if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
+    cached.hot._acceptCallbacks.forEach(function (cb) {
+      cb();
+    });
+
+    return true;
+  }
+}
+},{}]},{},["../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
 //# sourceMappingURL=/index.js.map

@@ -1,5 +1,3 @@
-// BOILERPLATE APP
-//
 
 /* ------------------------------------- VARIABLES -------------------------------------*/
 
@@ -7,7 +5,7 @@ const PORT = process.env.PORT || 3000
 // const DB_CONNECTION_URL = process.env.DB_CONNECTION_URL
 
 /* ------------------------------------- LIBS -------------------------------------*/
-const mongoose        = require('mongoose');
+// const mongoose        = require('mongoose');
 const express         = require('express'),
       hbs             = require('express-handlebars')
 

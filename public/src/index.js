@@ -1,4 +1,2 @@
-var gamejs = require('./game.js')
-var dom = require('./dom.js')
-
-/* ------------------------------------- PAUSE -------------------------------------*/
+// Not related to game logic
+// Called at the footer partial for all pages
