@@ -12,9 +12,9 @@ export const resolution = {
         size_y:9
     },
     SQUARE:{
-        GAME_WIDTH:286,
-        GAME_HEIGHT:286,
-        size_x:16,
-        size_y:16
+        GAME_WIDTH:290,
+        GAME_HEIGHT:290,
+        size_x:15,
+        size_y:15
     }
 }
