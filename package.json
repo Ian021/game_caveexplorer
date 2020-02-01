@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Simple Javascript game with basic html and css",
   "main": "server.js",
+  "engines": {
+    "node": "10.16.3"
+  },
   "scripts": {
     "dev": "parcel public/src/game.js public/src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
