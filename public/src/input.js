@@ -10,6 +10,10 @@ export class InputHandler{
 
     enableCommands(){
         document.addEventListener('keydown',this.keyboardCommands)
+        document.querySelectorAll(".commands-move img").forEach(element => {element.classList.remove("commands-move-disabled")});
+        document.querySelector(".commands-power").classList.remove("commands-power-disabled")
+        document.querySelector(".move-circle").classList.remove("move-circle-disabled")
+        document.querySelector(".pause-text").classList.add("pause-text-hide")
     }
 
     spacebarPause() {
@@ -67,7 +71,7 @@ export class InputHandler{
     pause() {
         const x = document.getElementsByClassName("play-pause")[0];
         if (this.gamePaused === true) {
-            x.style.backgroundColor = "#07070700"
+            x.style.backgroundColor = "#07070700" 
             this.gamePaused = false
             this.enableCommands()
         } else {
@@ -80,5 +84,9 @@ export class InputHandler{
 
     disableCommands(){
         document.removeEventListener('keydown',this.keyboardCommands)
+        document.querySelectorAll(".commands-move img").forEach(element => {element.classList.add("commands-move-disabled")});
+        document.querySelector(".commands-power").classList.add("commands-power-disabled")
+        document.querySelector(".move-circle").classList.add("move-circle-disabled")
+        document.querySelector(".pause-text").classList.remove("pause-text-hide")
     }
 }

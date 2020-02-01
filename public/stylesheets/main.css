@@ -238,3 +238,18 @@ h2 {
     grid-area: left;
     transform:rotate(270deg);
 }
+
+.commands-move-disabled {
+    content: url('/images/triangle-gray.svg')
+}
+
+.pause-text {
+    background-color: #EFEFEF80;
+    padding: 4px;
+    text-align: center;
+    margin-top: 35%;
+}
+
+.pause-text-hide {
+    display: none;
+}
