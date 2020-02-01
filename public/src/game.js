@@ -8,7 +8,7 @@ import { InputHandler } from './input'
 /*---------------------------------- ----------------------------------*/
 
 
-let {GAME_WIDTH, GAME_HEIGHT,size_x,size_y} = resolution.SQUARE
+let {GAME_WIDTH, GAME_HEIGHT,size_x,size_y} = resolution.SQUARE_MOBILE
 let scenario = new Scenario(size_x,size_y,{density:0.15,dispersion:0.2,maxPropagation:0.5,minPropagation:0.05})
 window.player = new Player(sqm)
 scenario.positionPlayer(player)

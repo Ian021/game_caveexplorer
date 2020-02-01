@@ -11,7 +11,7 @@ export const resolution = {
         size_x:16,
         size_y:9
     },
-    SQUARE:{
+    SQUARE_MOBILE:{
         GAME_WIDTH:290,
         GAME_HEIGHT:290,
         size_x:15,
