@@ -8,10 +8,10 @@ import { InputHandler } from './input'
 
 let {GAME_WIDTH, GAME_HEIGHT,size_x,size_y} = resolution.SQUARE
 let scenario = new Scenario(size_x,size_y,{density:0.15,dispersion:0.2,maxPropagation:0.5,minPropagation:0.05})
-let player = new Player(sqm)
+window.player = new Player(sqm)
 scenario.positionPlayer(player)
 
-let input = new InputHandler(player)
+window.input = new InputHandler(player)
 
 const sqm = GAME_HEIGHT/size_y
 /*---------------------------------- ----------------------------------*/
@@ -40,7 +40,6 @@ function gameLoop(timestamp){
     player.move(timestamp)
     
     scenario.draw(ctx,size_x,size_y,sqm)
-    // player.draw(ctx,sqm)
 
     requestAnimationFrame(gameLoop)
 }

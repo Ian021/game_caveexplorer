@@ -1,11 +1,11 @@
 
 <div class="commands-container" id="commands-active">
     <div class="commands-power"><a href="/ranking">Lose</a></div>
-    <div class="commands-move">
-        <div class="move-up"><img src="images/triangle-purple.svg" alt=""></div>
-        <div class="move-down"><img src="images/triangle-purple.svg" alt=""></div>
-        <div class="move-right"><img src="images/triangle-purple.svg" alt=""></div>
-        <div class="move-left"><img src="images/triangle-purple.svg" alt=""></div>
+    <div class="commands-move" onmouseup="input.buttonRelease()">
+        <div class="move-up"><img src="images/triangle-purple.svg" alt="" onmousedown="input.buttonDirection('UP')"></div>
+        <div class="move-down"><img src="images/triangle-purple.svg" alt="" onmousedown="input.buttonDirection('DOWN')"></div>
+        <div class="move-right"><img src="images/triangle-purple.svg" alt="" onmousedown="input.buttonDirection('RIGHT')"></div>
+        <div class="move-left"><img src="images/triangle-purple.svg" alt="" onmousedown="input.buttonDirection('LEFT')"></div>
         <div class="move-circle"></div>
     </div>
 </div>

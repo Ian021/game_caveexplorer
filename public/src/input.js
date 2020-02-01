@@ -22,4 +22,24 @@ export class InputHandler{
             player.speed.y = 0
         })
     }
+    buttonDirection(direction) {
+        switch(direction) {
+            case "LEFT":
+                player.speed.x = -1
+                break
+            case "UP":
+                player.speed.y = -1
+                break
+            case "RIGHT":
+                player.speed.x = 1
+                break
+            case "DOWN":
+                player.speed.y = 1
+                break
+        }
+    }
+    buttonRelease(){
+        player.speed.x = 0
+        player.speed.y = 0
+    }
 }
