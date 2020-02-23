@@ -245,9 +245,14 @@ h2 {
 
 .pause-text {
     background-color: #EFEFEF80;
-    padding: 4px;
+    padding: 8px;
     text-align: center;
     margin-top: 35%;
+}
+
+.pause-text p{
+    margin-top: 8px;
+    margin-bottom: 0;
 }
 
 .pause-text-hide {

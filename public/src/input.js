@@ -5,11 +5,11 @@ export class InputHandler{
         this.enableCommands();
 
         document.addEventListener('keydown',this.spacebarPause.bind(this))
-        document.addEventListener('keyup',this.stopCommand)
+        document.addEventListener('keyup',()=>{this.move('STOP')})
     }
 
     enableCommands(){
-        document.addEventListener('keydown',this.keyboardCommands)
+        document.addEventListener('keydown',this.keyboardCommands.bind(this))
         document.querySelectorAll(".commands-move img").forEach(element => {element.classList.remove("commands-move-disabled")});
         document.querySelector(".commands-power").classList.remove("commands-power-disabled")
         document.querySelector(".move-circle").classList.remove("move-circle-disabled")
@@ -23,44 +23,59 @@ export class InputHandler{
         }
     }
 
-    stopCommand(event){
-        player.speed.x = 0
-        player.speed.y = 0
+    move(direction) {
+        if (!this.gamePaused){
+            switch(direction){
+                case 'LEFT':
+                    this.move('STOP')
+                    player.speed.x = -1
+                    break
+                case 'UP':
+                    this.move('STOP')
+                    player.speed.y = -1
+                    break
+                case 'RIGHT':
+                    this.move('STOP')
+                    player.speed.x = 1
+                    break
+                case 'DOWN':
+                    this.move('STOP')
+                    player.speed.y = 1
+                    break
+                case 'STOP':
+                    player.speed.x = 0
+                    player.speed.y = 0
+                    break
+            }
+        }
     }
 
     keyboardCommands(event){
         switch(event.keyCode) {
             case 37:
-                player.speed.x = -1
+                this.move('LEFT')
+                break
+            case 65:
+                this.move('LEFT')
                 break
             case 38:
-                player.speed.y = -1
+                this.move('UP')
+                break
+            case 87:
+                this.move('UP')
                 break
             case 39:
-                player.speed.x = 1
+                this.move('RIGHT')
+                break
+            case 68:
+                this.move('RIGHT')
                 break
             case 40:
-                player.speed.y = 1
+                this.move('DOWN')
                 break
-        }
-    }
-
-    buttonDirection(direction) {
-        if (!this.gamePaused){
-            switch(direction) {
-                case "LEFT":
-                    player.speed.x = -1
-                    break
-                case "UP":
-                    player.speed.y = -1
-                    break
-                case "RIGHT":
-                    player.speed.x = 1
-                    break
-                case "DOWN":
-                    player.speed.y = 1
-                    break
-            }
+            case 83:
+                this.move('DOWN')
+                break
         }
     }
 
@@ -76,7 +91,7 @@ export class InputHandler{
             this.enableCommands()
         } else {
             this.disableCommands()
-            this.stopCommand()
+            this.move('STOP')
             x.style.backgroundColor = "#07070780"
             this.gamePaused = true
         }

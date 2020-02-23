@@ -41,7 +41,7 @@ function gameLoop(timestamp){
     scenario.movePlayer(player,deltaTime,timestamp)
     player.move(timestamp)
     
-    scenario.draw(ctx,size_x,size_y,sqm)
+    scenario.draw(ctx,size_x,size_y,sqm,player.code)
 
     requestAnimationFrame(gameLoop)
 }

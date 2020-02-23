@@ -134,7 +134,7 @@ export class Scenario {
         }
     }
 
-    draw(ctx,size_x,size_y,grid_element_size){
+    draw(ctx,size_x,size_y,grid_element_size,playerCode){
 
         for(let x=0;x<size_x;x++){
             for (let y=0;y<size_y;y++){
@@ -145,7 +145,7 @@ export class Scenario {
                         grid_element_size*y,
                         grid_element_size,
                         grid_element_size);
-                } else if (this.gridMap[x][y]===player.code) {
+                } else if (this.gridMap[x][y]===playerCode) {
                     ctx.fillStyle = 'rgb(64,64,128)'
                     ctx.fillRect(
                         grid_element_size*x,

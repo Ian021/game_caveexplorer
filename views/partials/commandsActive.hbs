@@ -1,11 +1,11 @@
 
 <div class="commands-container" id="commands-active" oncontextmenu="return false;">
     <div class="commands-power" onpointerup="input.usePower()"></div>
-    <div class="commands-move" onpointerout="input.stopCommand()" onpointerup="input.stopCommand()">
-        <div class="move-up"><img src="images/triangle-purple.svg" alt="" onpointerdown="input.buttonDirection('UP')"></div>
-        <div class="move-down"><img src="images/triangle-purple.svg" alt="" onpointerdown="input.buttonDirection('DOWN')"></div>
-        <div class="move-right"><img src="images/triangle-purple.svg" alt="" onpointerdown="input.buttonDirection('RIGHT')"></div>
-        <div class="move-left"><img src="images/triangle-purple.svg" alt="" onpointerdown="input.buttonDirection('LEFT')"></div>
+    <div class="commands-move" onpointerout="input.move('STOP')" onpointerup="input.move('STOP')">
+        <div class="move-up"><img src="images/triangle-purple.svg" alt="" onpointerdown="input.move('UP')"></div>
+        <div class="move-down"><img src="images/triangle-purple.svg" alt="" onpointerdown="input.move('DOWN')"></div>
+        <div class="move-right"><img src="images/triangle-purple.svg" alt="" onpointerdown="input.move('RIGHT')"></div>
+        <div class="move-left"><img src="images/triangle-purple.svg" alt="" onpointerdown="input.move('LEFT')"></div>
         <div class="move-circle"></div>
     </div>
 </div>
