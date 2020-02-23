@@ -1,6 +1,4 @@
 
-{{>header}}
-
 <div class="game-container">
     <div class="start-container">
         <h2 class="start-title">A long time ago...</h2>
@@ -11,7 +9,7 @@
             Just go down hoping to find a safer place to wait for help...
             </p>
         </div>
-        <img class="start-image" src="/images/start.jpg" alt="">
+        <img class="start-image" src="/images/start.svg" alt="">
         <div class="start-form">
             <form action="/" method="POST">
                 <input class="form-text" type="text" placeholder="Explorer Name" required="true">
@@ -21,9 +19,8 @@
     </div>
 
     {{>commandsInactive}}
-    
 </div>
 
-
-
-{{>footer}}
+<audio class="music" autoplay loop>
+    <source src="/sound/01 - Opening.ogg">
+</audio>
