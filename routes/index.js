@@ -7,8 +7,10 @@ const userModel       = require('../models/players')
 router = express.Router()
 
 /* ------------------------------------- ROUTES -------------------------------------*/
+let soundOn = true;
+
 router.get('/', function(req,res) {
-    return res.render('home')
+    return res.render('home',{soundOn:soundOn})
 })
 
 router.post('/',function(req,res) {
@@ -16,11 +18,16 @@ router.post('/',function(req,res) {
 })
 
 router.get('/play', function(req,res) {
-    return res.render('play')
+    return res.render('play',{soundOn:soundOn})
 })
 
 router.get('/ranking',function(req,res) {
-    return res.render('ranking')
+    return res.render('ranking',{soundOn:soundOn})
+})
+
+router.post('/sound',function(req,res){
+    soundOn = req.body.soundOn
+    res.send({soundOn : soundOn})
 })
 
 module.exports = router

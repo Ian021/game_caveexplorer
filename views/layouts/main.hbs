@@ -15,9 +15,16 @@
       <a href="/">
           <h1>Cave Explorer</h1>
       </a>
+      {{#if soundOn}}
       <span class="toggle-sound sound-on">
           <img src="images/sound-on-white.svg" alt="">
       </span>
+      {{else}}
+      <span class="toggle-sound sound-off">
+          <img src="images/sound-off-white.svg" alt="">
+      </span>
+      {{/if}}
+      
   </div>
 
     {{{body}}}

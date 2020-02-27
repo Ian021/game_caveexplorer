@@ -3,11 +3,10 @@
 
 // ------------------ Toggle Sound ------------------ //
 
-let soundOn = true;
-
 soundButton = document.querySelector('.toggle-sound');
-// soundImage = document.querySelector('.toggle-sound img');
 music = document.querySelector('.music');
+
+let soundOn = soundButton.classList.contains('sound-on') ? true : false
 
 soundButton.addEventListener('click',toggleSound)
 
@@ -18,13 +17,23 @@ function toggleSound () {
         soundButton.classList.remove('sound-on')
         soundButton.classList.add('sound-off')
         music.pause()
+
+        fetch('/sound',{
+            method:'POST',
+            headers: {'Content-Type': 'application/json'},
+            body:JSON.stringify({"soundOn":soundOn})
+        })
     } else {
         soundOn = true;
 
         soundButton.classList.remove('sound-off')
         soundButton.classList.add('sound-on')
         music.play()
+
+        fetch('/sound',{
+            method:'POST',
+            headers: {'Content-Type': 'application/json'},
+            body:JSON.stringify({"soundOn":soundOn})
+        })
     }
 }
-
-// console.log('This is working!!!')
