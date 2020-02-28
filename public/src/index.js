@@ -16,24 +16,26 @@ function toggleSound () {
 
         soundButton.classList.remove('sound-on')
         soundButton.classList.add('sound-off')
+        changeUrlParams(soundOn)
         music.pause()
 
-        fetch('/sound',{
-            method:'POST',
-            headers: {'Content-Type': 'application/json'},
-            body:JSON.stringify({"soundOn":soundOn})
-        })
     } else {
         soundOn = true;
 
         soundButton.classList.remove('sound-off')
         soundButton.classList.add('sound-on')
+        changeUrlParams(soundOn)
         music.play()
 
-        fetch('/sound',{
-            method:'POST',
-            headers: {'Content-Type': 'application/json'},
-            body:JSON.stringify({"soundOn":soundOn})
-        })
     }
+}
+
+function changeUrlParams (soundOn) {
+    document.querySelectorAll('a').forEach(element => {
+        element.href = element.href.replace(`soundOn=${!soundOn}`,`soundOn=${soundOn}`)
+    })
+    document.querySelectorAll('.sound-on-form').forEach(element => {
+        element.value = soundOn
+        console.log(element)
+    })    
 }

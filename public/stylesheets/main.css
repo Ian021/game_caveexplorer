@@ -33,6 +33,7 @@ body {
 
 .navbar a {
     grid-area: title;
+    text-decoration: none;
 }
 
 .navbar .toggle-sound {

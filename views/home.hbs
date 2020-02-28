@@ -11,8 +11,9 @@
         </div>
         <img class="start-image" src="/images/start.svg" alt="">
         <div class="start-form">
-            <form action="/" method="POST">
-                <input class="form-text" type="text" placeholder="Explorer Name" required="true">
+            <form action="/play" method="GET">
+                <input class="form-text" type="text" placeholder="Explorer Name" required="true" name="explorer">
+                <input type="text" name="soundOn" value="false" class="sound-on-form" hidden>
                 <input class="form-button" value="Start!" type="submit">
             </form>
         </div>

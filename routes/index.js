@@ -7,27 +7,35 @@ const userModel       = require('../models/players')
 router = express.Router()
 
 /* ------------------------------------- ROUTES -------------------------------------*/
-let soundOn = true;
 
-router.get('/', function(req,res) {
-    return res.render('home',{soundOn:soundOn})
+router.get('/', paramHandler, function(req,res) {
+    return res.render('home')
 })
 
-router.post('/',function(req,res) {
-    return res.redirect('/play')
+router.get('/play', paramHandler, function(req,res) {
+    return res.render('play')
 })
 
-router.get('/play', function(req,res) {
-    return res.render('play',{soundOn:soundOn})
+router.get('/ranking', paramHandler, function(req,res) {
+    return res.render('ranking')
 })
 
-router.get('/ranking',function(req,res) {
-    return res.render('ranking',{soundOn:soundOn})
-})
+function paramHandler (req,res,next) {
 
-router.post('/sound',function(req,res){
-    soundOn = req.body.soundOn
-    res.send({soundOn : soundOn})
-})
+    res.locals.soundOn = req.query.soundOn === 'true' ? true : false
+
+    if (req.query.explorer){
+        res.locals.explorer = req.query.explorer
+        res.locals.paramString = `?explorer=${req.query.explorer}&soundOn=${res.locals.soundOn}`
+        return next()
+    } else {
+        res.locals.paramString = `?soundOn=${res.locals.soundOn}`
+        if (req.route.path === '/') {
+            return next()
+        } else {
+            return res.redirect('/')
+        }
+    }
+}
 
 module.exports = router

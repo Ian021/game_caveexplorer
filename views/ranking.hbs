@@ -5,8 +5,9 @@
         <div class="ranking-display-left"></div>
         <div class="ranking-display-right"></div>
         <div class="ranking-play">
-            <form action="/" method="POST">
-                <input type="hidden" value="{{""}}">
+            <form action="/play" method="GET">
+                <input type="text" name="explorer" value="{{explorer}}" hidden>
+                <input type="text" name="soundOn" value="{{soundOn}}" class="sound-on-form" hidden>
                 <input class="form-button" value="Play again!" type="submit">
             </form>
         </div>

@@ -80,7 +80,7 @@ export class InputHandler{
     }
 
     usePower() {
-        window.location.replace("/ranking");
+        
     }
 
     pause() {
