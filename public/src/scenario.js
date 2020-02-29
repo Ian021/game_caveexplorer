@@ -1,3 +1,5 @@
+import { Monster } from "./monster";
+
 // Trocar forearch por for; calcular novos blocos somente nas extremidades (remover blocos antigos)
 
 export class Scenario {
@@ -112,7 +114,29 @@ export class Scenario {
         this.gridMap[player.position.x][player.position.y] = player.code
     }
 
-    movePlayer(player,deltaTime,timestamp){
+    positionMonster(monster){
+        
+        let randomSeed = Math.random()
+
+        if (randomSeed > 0.5) {
+            if (randomSeed > 0.75) {
+                monster.position.x = this.size_x - 1
+            } else {
+                monster.position.x = 0
+            }
+            monster.position.y = Math.round((this.size_y - 1) * Math.random())
+        } else {
+            if (randomSeed > 0.25) {
+                monster.position.y = this.size_x - 1
+            } else {
+                monster.position.y = 0
+            }
+            monster.position.x = Math.round((this.size_x - 1) * Math.random())
+        }
+        this.gridMap[monster.position.x][monster.position.y] = monster.code
+    }
+
+    movePlayer(player,deltaTime,timestamp,monsterCode,gameOver){
 
         if (deltaTime !== 0 && player.moving === false){
 
@@ -129,13 +153,14 @@ export class Scenario {
                     player.position.y = player.position.y + player.speed.y
                     player.moving = true
                     player.lastMove = timestamp
+                } else if (this.gridMap[player.position.x+player.speed.x][player.position.y+player.speed.y]===monsterCode) {
+                    gameOver()
                 }
             }
         }
     }
 
-    draw(ctx,size_x,size_y,grid_element_size,playerCode){
-
+    draw(ctx,size_x,size_y,grid_element_size,playerCode,monsterCode){
         for(let x=0;x<size_x;x++){
             for (let y=0;y<size_y;y++){
                 if (this.gridMap[x][y]===1){
@@ -147,6 +172,13 @@ export class Scenario {
                         grid_element_size);
                 } else if (this.gridMap[x][y]===playerCode) {
                     ctx.fillStyle = 'rgb(64,64,128)'
+                    ctx.fillRect(
+                        grid_element_size*x,
+                        grid_element_size*y,
+                        grid_element_size,
+                        grid_element_size);
+                } else if (this.gridMap[x][y]===monsterCode) {
+                    ctx.fillStyle = 'rgb(128,64,64)'
                     ctx.fillRect(
                         grid_element_size*x,
                         grid_element_size*y,

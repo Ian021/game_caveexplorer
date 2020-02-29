@@ -36,6 +36,8 @@ function changeUrlParams (soundOn) {
     })
     document.querySelectorAll('.sound-on-form').forEach(element => {
         element.value = soundOn
-        console.log(element)
-    })    
+    })
+    document.querySelectorAll('.game-over').forEach(element => {
+        element.value = element.value.replace(`soundOn=${!soundOn}`,`soundOn=${soundOn}`)
+    })
 }
