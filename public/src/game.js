@@ -1,7 +1,9 @@
+
 // Contains the game logic
 // Only called for the play page
 /*---------------------------------- ----------------------------------*/
 
+import { Map } from './map'
 import { Scenario } from './scenario'
 import { resolution } from './resolution'
 import { Player } from './player'
@@ -12,12 +14,12 @@ import { Events } from './events'
 
 
 let {GAME_WIDTH, GAME_HEIGHT,size_x,size_y} = resolution.SQUARE_MOBILE
-let scenario = new Scenario(size_x,size_y,{density:0.15,dispersion:0.2,maxPropagation:0.5,minPropagation:0.05})
 
+let map = new Map(size_x,size_y,{density:0.15,dispersion:0.2,maxPropagation:0.5,minPropagation:0.05})
 window.player = new Player()
 window.monster = new Monster()
-scenario.positionPlayer(player)
-scenario.positionMonster(monster)
+
+let scenario = new Scenario(map,player,monster)
 
 window.input = new InputHandler(player)
 window.events = new Events()
