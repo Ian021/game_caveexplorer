@@ -16,6 +16,8 @@ export class Scenario {
         this.gridMap
 
         this._generateMap()
+
+        this.gameOver = 0
     }
 
     checkInput(size_x,size_y,optional_parameters) {
@@ -153,7 +155,9 @@ export class Scenario {
                     player.position.y = player.position.y + player.speed.y
                     player.moving = true
                     player.lastMove = timestamp
-                } else if (this.gridMap[player.position.x+player.speed.x][player.position.y+player.speed.y]===monsterCode) {
+                } else if (this.gridMap[player.position.x+player.speed.x][player.position.y+player.speed.y]===monsterCode &&
+                    this.gameOver === 0) {
+                    this.gameOver = 1
                     gameOver()
                 }
             }
