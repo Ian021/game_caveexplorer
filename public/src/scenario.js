@@ -51,11 +51,47 @@ export class Scenario {
                     this.map.gridMap[player.position.x][player.position.y] = 0
                     this.map.gridMap[player.position.x+player.speed.x][player.position.y+player.speed.y] = player.code
 
-                    player.position.x = player.position.x + player.speed.x
-                    player.position.y = player.position.y + player.speed.y
-                    player.moving = true
-                    player.lastMove = timestamp
+                    return {
+                        position:{
+                            x: player.position.x + player.speed.x,
+                            y: player.position.y + player.speed.y
+                        },
+                        moving: true,
+                        lastMove: timestamp
+                    }
+
                 } else if (this.map.gridMap[player.position.x+player.speed.x][player.position.y+player.speed.y]===monsterCode &&
+                    this.isGameOver === 0) {
+                    this.isGameOver = 1
+                    gameOver()
+                }
+            }
+        }
+    }
+
+    moveMonster(monster,deltaTime,timestamp,playerCode,gameOver){
+
+        if (deltaTime !== 0 && monster.moving === false){
+
+            if( monster.position.x + monster.speed.x < this.map.size_x &&
+                monster.position.x + monster.speed.x >= 0 &&
+                monster.position.y + monster.speed.y < this.map.size_y &&
+                monster.position.y + monster.speed.y >= 0
+                ){
+                if (this.map.gridMap[monster.position.x+monster.speed.x][monster.position.y+monster.speed.y]===0){
+                    this.map.gridMap[monster.position.x][monster.position.y] = 0
+                    this.map.gridMap[monster.position.x+monster.speed.x][monster.position.y+monster.speed.y] = monster.code
+
+                    return {
+                        position:{
+                            x: monster.position.x + monster.speed.x,
+                            y: monster.position.y + monster.speed.y
+                        },
+                        moving: true,
+                        lastMove: timestamp
+                    }
+
+                } else if (this.map.gridMap[monster.position.x+monster.speed.x][monster.position.y+monster.speed.y]===playerCode &&
                     this.isGameOver === 0) {
                     this.isGameOver = 1
                     gameOver()

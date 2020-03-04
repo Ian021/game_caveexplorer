@@ -20,4 +20,11 @@ export class Player {
             this.moving = false
         }
     }
+    processMovement(object) {
+        if (object) {
+            this.position = object.position;
+            this.moving = object.moving;
+            this.lastMove = object.lastMove;
+        }
+    }
 }
