@@ -38,60 +38,29 @@ export class Scenario {
         this.map.gridMap[monster.position.x][monster.position.y] = monster.code
     }
 
-    movePlayer(player,deltaTime,timestamp,monsterCode,gameOver){
+    move(creature,deltaTime,timestamp,enemyCode,gameOver){
 
-        if (deltaTime !== 0 && player.moving === false){
+        if (deltaTime !== 0 && creature.moving === false){
 
-            if( player.position.x + player.speed.x < this.map.size_x &&
-                player.position.x + player.speed.x >= 0 &&
-                player.position.y + player.speed.y < this.map.size_y &&
-                player.position.y + player.speed.y >= 0
+            if( creature.position.x + creature.speed.x < this.map.size_x &&
+                creature.position.x + creature.speed.x >= 0 &&
+                creature.position.y + creature.speed.y < this.map.size_y &&
+                creature.position.y + creature.speed.y >= 0
                 ){
-                if (this.map.gridMap[player.position.x+player.speed.x][player.position.y+player.speed.y]===0){
-                    this.map.gridMap[player.position.x][player.position.y] = 0
-                    this.map.gridMap[player.position.x+player.speed.x][player.position.y+player.speed.y] = player.code
+                if (this.map.gridMap[creature.position.x+creature.speed.x][creature.position.y+creature.speed.y]===0){
+                    this.map.gridMap[creature.position.x][creature.position.y] = 0
+                    this.map.gridMap[creature.position.x+creature.speed.x][creature.position.y+creature.speed.y] = creature.code
 
                     return {
                         position:{
-                            x: player.position.x + player.speed.x,
-                            y: player.position.y + player.speed.y
+                            x: creature.position.x + creature.speed.x,
+                            y: creature.position.y + creature.speed.y
                         },
                         moving: true,
                         lastMove: timestamp
                     }
 
-                } else if (this.map.gridMap[player.position.x+player.speed.x][player.position.y+player.speed.y]===monsterCode &&
-                    this.isGameOver === 0) {
-                    this.isGameOver = 1
-                    gameOver()
-                }
-            }
-        }
-    }
-
-    moveMonster(monster,deltaTime,timestamp,playerCode,gameOver){
-
-        if (deltaTime !== 0 && monster.moving === false){
-
-            if( monster.position.x + monster.speed.x < this.map.size_x &&
-                monster.position.x + monster.speed.x >= 0 &&
-                monster.position.y + monster.speed.y < this.map.size_y &&
-                monster.position.y + monster.speed.y >= 0
-                ){
-                if (this.map.gridMap[monster.position.x+monster.speed.x][monster.position.y+monster.speed.y]===0){
-                    this.map.gridMap[monster.position.x][monster.position.y] = 0
-                    this.map.gridMap[monster.position.x+monster.speed.x][monster.position.y+monster.speed.y] = monster.code
-
-                    return {
-                        position:{
-                            x: monster.position.x + monster.speed.x,
-                            y: monster.position.y + monster.speed.y
-                        },
-                        moving: true,
-                        lastMove: timestamp
-                    }
-
-                } else if (this.map.gridMap[monster.position.x+monster.speed.x][monster.position.y+monster.speed.y]===playerCode &&
+                } else if (this.map.gridMap[creature.position.x+creature.speed.x][creature.position.y+creature.speed.y]===enemyCode &&
                     this.isGameOver === 0) {
                     this.isGameOver = 1
                     gameOver()
