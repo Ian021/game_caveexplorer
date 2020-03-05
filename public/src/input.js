@@ -1,8 +1,10 @@
 
 export class InputHandler{
-    constructor(player){
+    constructor(player,monster){
         this.gamePaused = false;
         this.enableCommands();
+        this.player = player
+        this.monster = monster
 
         document.addEventListener('keydown',this.spacebarPause.bind(this))
         document.addEventListener('keyup',()=>{this.move('STOP')})
@@ -28,23 +30,23 @@ export class InputHandler{
             switch(direction){
                 case 'LEFT':
                     this.move('STOP')
-                    player.speed.x = -1
+                    this.player.speed.x = -1
                     break
                 case 'UP':
                     this.move('STOP')
-                    player.speed.y = -1
+                    this.player.speed.y = -1
                     break
                 case 'RIGHT':
                     this.move('STOP')
-                    player.speed.x = 1
+                    this.player.speed.x = 1
                     break
                 case 'DOWN':
                     this.move('STOP')
-                    player.speed.y = 1
+                    this.player.speed.y = 1
                     break
                 case 'STOP':
-                    player.speed.x = 0
-                    player.speed.y = 0
+                    this.player.speed.x = 0
+                    this.player.speed.y = 0
                     break
             }
         }
@@ -89,10 +91,12 @@ export class InputHandler{
             x.style.backgroundColor = "#07070700" 
             this.gamePaused = false
             this.enableCommands()
+            this.monster.pause(false)
         } else {
             this.disableCommands()
             this.move('STOP')
             x.style.backgroundColor = "#07070780"
+            this.monster.pause(true)
             this.gamePaused = true
         }
     }

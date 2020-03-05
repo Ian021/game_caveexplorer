@@ -24,7 +24,7 @@ window.monster = new Monster(path)
 
 let scenario = new Scenario(map,player,monster)
 
-window.input = new InputHandler(player)
+window.input = new InputHandler(player,monster)
 window.events = new Events()
 
 const sqm = GAME_HEIGHT/size_y
@@ -49,8 +49,8 @@ function gameLoop(timestamp){
 
     ctx.clearRect(0,0,GAME_WIDTH,GAME_HEIGHT)
 
-    player.processMovement( scenario.movePlayer(player,deltaTime,timestamp,monster.code,events.gameOver) )
-    monster.processMovement( scenario.moveMonster(monster,deltaTime,timestamp,player.code,events.gameOver) )
+    player.processMovement( scenario.move(player,deltaTime,timestamp,monster.code,events.gameOver) )
+    monster.processMovement( scenario.move(monster,deltaTime,timestamp,player.code,events.gameOver) )
     player.move(timestamp)
     monster.move(timestamp)
     
