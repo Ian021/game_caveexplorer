@@ -8,6 +8,7 @@ import { Scenario } from './scenario'
 import { resolution } from './resolution'
 import { Player } from './player'
 import { Monster } from './monster'
+import { Win } from './win'
 import { InputHandler } from './input'
 import { Events } from './events'
 import { Pathfinding } from './pathfinding'
@@ -21,8 +22,9 @@ let path = new Pathfinding()
 
 let player = new Player()
 let monster = new Monster(path)
+let win = new Win()
 
-let scenario = new Scenario(map,player,monster)
+let scenario = new Scenario(map,player,monster,win)
 
 window.input = new InputHandler(player,monster)
 window.events = new Events()
@@ -49,12 +51,12 @@ function gameLoop(timestamp){
 
     ctx.clearRect(0,0,GAME_WIDTH,GAME_HEIGHT)
 
-    player.processMovement( scenario.move(player,deltaTime,timestamp,monster.code,events.gameOver) )
+    player.processMovement( scenario.move(player,deltaTime,timestamp,monster.code,events.gameOver,win) )
     monster.processMovement( scenario.move(monster,deltaTime,timestamp,player.code,events.gameOver) )
     player.move(timestamp)
     monster.move(timestamp)
     
-    scenario.draw(ctx,size_x,size_y,sqm,player.code,monster.code)
+    scenario.draw(ctx,size_x,size_y,sqm,player.code,monster.code,win.code)
 
     requestAnimationFrame(gameLoop)
 }

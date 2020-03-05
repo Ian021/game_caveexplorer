@@ -1,12 +1,14 @@
 
 export class Scenario {
-    constructor(map,player,monster){
+    constructor(map,player,monster,win){
 
         this.map = map
 
         this.positionPlayer(player)
-        this.positionMonster(monster)
+        this.positionNPC(monster)
+        this.positionNPC(win)
 
+        this.gameWon = 0
         this.isGameOver = 0
     }
 
@@ -16,29 +18,29 @@ export class Scenario {
         this.map.gridMap[player.position.x][player.position.y] = player.code
     }
 
-    positionMonster(monster){
+    positionNPC(NPC){
         
         let randomSeed = Math.random()
 
         if (randomSeed > 0.5) {
             if (randomSeed > 0.75) {
-                monster.position.x = this.map.size_x - 1
+                NPC.position.x = this.map.size_x - 1
             } else {
-                monster.position.x = 0
+                NPC.position.x = 0
             }
-            monster.position.y = Math.round((this.map.size_y - 1) * Math.random())
+            NPC.position.y = Math.round((this.map.size_y - 1) * Math.random())
         } else {
             if (randomSeed > 0.25) {
-                monster.position.y = this.map.size_x - 1
+                NPC.position.y = this.map.size_x - 1
             } else {
-                monster.position.y = 0
+                NPC.position.y = 0
             }
-            monster.position.x = Math.round((this.map.size_x - 1) * Math.random())
+            NPC.position.x = Math.round((this.map.size_x - 1) * Math.random())
         }
-        this.map.gridMap[monster.position.x][monster.position.y] = monster.code
+        this.map.gridMap[NPC.position.x][NPC.position.y] = NPC.code
     }
 
-    move(creature,deltaTime,timestamp,enemyCode,gameOver){
+    move(creature,deltaTime,timestamp,enemyCode,gameOver,win){
 
         if (deltaTime !== 0 && creature.moving === false){
 
@@ -64,12 +66,16 @@ export class Scenario {
                     this.isGameOver === 0) {
                     this.isGameOver = 1
                     gameOver()
+                } else if (win && this.map.gridMap[creature.position.x+creature.speed.x][creature.position.y+creature.speed.y]===win.code &&
+                    this.gameWon === 0) {
+                    this.gameWon = 1
+                    win.win()
                 }
             }
         }
     }
 
-    draw(ctx,size_x,size_y,grid_element_size,playerCode,monsterCode){
+    draw(ctx,size_x,size_y,grid_element_size,playerCode,monsterCode,winCode){
         for(let x=0;x<size_x;x++){
             for (let y=0;y<size_y;y++){
                 if (this.map.gridMap[x][y]===1){
@@ -93,7 +99,14 @@ export class Scenario {
                         grid_element_size*y,
                         grid_element_size,
                         grid_element_size);
-                }
+                } else if (this.map.gridMap[x][y]===winCode) {
+                ctx.fillStyle = 'rgb(64,128,64)'
+                ctx.fillRect(
+                    grid_element_size*x,
+                    grid_element_size*y,
+                    grid_element_size,
+                    grid_element_size);
+            }
             }
         }
     }
