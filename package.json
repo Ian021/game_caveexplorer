@@ -7,9 +7,9 @@
     "node": "10.16.3"
   },
   "scripts": {
-    "dev": "parcel public/src/game.js public/src/index.js",
+    "dev": "parcel public/src/game.js public/src/index.js public/src/playagain.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel build public/src/game.js public/src/index.js",
+    "build": "parcel build public/src/game.js public/src/index.js public/src/playagain.js",
     "start": "node server.js"
   },
   "author": "Ian Collares",

@@ -19,8 +19,8 @@ let map = new Map(size_x,size_y,{density:0.15,dispersion:0.2,maxPropagation:0.5,
 
 let path = new Pathfinding()
 
-window.player = new Player()
-window.monster = new Monster(path)
+let player = new Player()
+let monster = new Monster(path)
 
 let scenario = new Scenario(map,player,monster)
 
