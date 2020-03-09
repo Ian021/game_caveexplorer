@@ -29,18 +29,15 @@ export class Monster {
         }
     }
 
-    move(timestamp){
-        if(timestamp - this.lastMove > this.speed.module){
-            this.moving = false
-            this.findNextMove()
-        }
-    }
-
-    processMovement(object) {
+    move(timestamp,object){
         if (object) {
             this.position = object.position;
             this.moving = object.moving;
             this.lastMove = object.lastMove;
+        }
+        if(timestamp - this.lastMove > this.speed.module){
+            this.moving = false
+            this.findNextMove()
         }
     }
     

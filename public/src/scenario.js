@@ -42,7 +42,7 @@ export class Scenario {
 
     move(creature,deltaTime,timestamp,enemyCode,gameOver,win){
 
-        if (deltaTime !== 0 && creature.moving === false){
+        if (deltaTime !== 0 && creature.moving === false && this.gameWon === 0){
 
             if( creature.position.x + creature.speed.x < this.map.size_x &&
                 creature.position.x + creature.speed.x >= 0 &&
@@ -65,14 +65,17 @@ export class Scenario {
                 } else if (this.map.gridMap[creature.position.x+creature.speed.x][creature.position.y+creature.speed.y]===enemyCode &&
                     this.isGameOver === 0) {
                     this.isGameOver = 1
-                    gameOver()
+                    return gameOver()
                 } else if (win && this.map.gridMap[creature.position.x+creature.speed.x][creature.position.y+creature.speed.y]===win.code &&
                     this.gameWon === 0) {
                     this.gameWon = 1
-                    win.win()
                 }
             }
         }
+    }
+
+    nextLevel(){
+        return this.gameWon
     }
 
     draw(ctx,size_x,size_y,grid_element_size,playerCode,monsterCode,winCode){

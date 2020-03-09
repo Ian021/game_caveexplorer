@@ -7,9 +7,4 @@ export class Win{
             y : 0
         }
     }
-
-    win(){
-        console.log('next level')
-    }
-
 }
