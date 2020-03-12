@@ -8,7 +8,7 @@ export class Scenario {
         this.positionNPC(monster)
         this.positionNPC(win)
 
-        this.gameWon = 0
+        this.gameWon = false
         this.isGameOver = 0
     }
 
@@ -42,7 +42,7 @@ export class Scenario {
 
     move(creature,deltaTime,timestamp,enemyCode,gameOver,win){
 
-        if (deltaTime !== 0 && creature.moving === false && this.gameWon === 0){
+        if (deltaTime !== 0 && creature.moving === false && this.gameWon === false){
 
             if( creature.position.x + creature.speed.x < this.map.size_x &&
                 creature.position.x + creature.speed.x >= 0 &&
@@ -67,8 +67,8 @@ export class Scenario {
                     this.isGameOver = 1
                     return gameOver()
                 } else if (win && this.map.gridMap[creature.position.x+creature.speed.x][creature.position.y+creature.speed.y]===win.code &&
-                    this.gameWon === 0) {
-                    this.gameWon = 1
+                    this.gameWon === false) {
+                    this.gameWon = true
                 }
             }
         }

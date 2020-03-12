@@ -1,7 +1,8 @@
+import { platform } from "os"
 
 export class Player {
     constructor(){
-        this.code = 100101
+        this.code = 2
         this.health = 100
         this.moving = false
         this.lastMove = 0
@@ -25,5 +26,9 @@ export class Player {
         if(timestamp - this.lastMove > this.speed.module){
             this.moving = false
         }
+    }
+    isAbleToWin(win,pathfinding){
+        let isAbleToWin = Boolean(pathfinding.execute(this,win))
+        return isAbleToWin
     }
 }
