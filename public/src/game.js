@@ -49,8 +49,15 @@ function createGame (callback){
     map = new Map(size_x,size_y,mapParameters)
     scenario = new Scenario(map,player,monster,win)
     pathfinding = new Pathfinding(map)
-
     return callback()
+}
+
+function nextLevelText(level){
+    ctx.clearRect(0,0,GAME_WIDTH,GAME_HEIGHT)
+    ctx.fillStyle = 'rgb(64,64,64)'
+    ctx.textAlign = "center";
+    ctx.font = "bold 30px Arial";
+    ctx.fillText("LEVEL "+level, canvas.width/2, canvas.height/2);
 }
 
 function gameLoop(timestamp){
@@ -65,26 +72,28 @@ function gameLoop(timestamp){
             }
         })
 
-        if(nextLevel){
+        if(nextLevel && !resetGame){
             nextLevel = false
             level++
+            nextLevelText(level)
+            setTimeout(()=>requestAnimationFrame(gameLoop),1000)
+        } else {    
+            requestAnimationFrame(gameLoop)
         }
+
+    } else {
+        let deltaTime = timestamp - lastTime
+        lastTime = timestamp
+
+        player.move(timestamp, scenario.move(player,deltaTime,timestamp,monster.code,events.gameOver, win))
+        monster.move(timestamp, scenario.move(monster,deltaTime,timestamp,player.code,events.gameOver), pathfinding, player, win)
+        
+        ctx.clearRect(0,0,GAME_WIDTH,GAME_HEIGHT)
+        scenario.draw(ctx,size_x,size_y,sqm,player.code,monster.code,win.code)
+
+        nextLevel = scenario.nextLevel()
+        requestAnimationFrame(gameLoop)
     }
-
-    let deltaTime = timestamp - lastTime
-
-    lastTime = timestamp
-
-    ctx.clearRect(0,0,GAME_WIDTH,GAME_HEIGHT)
-
-    player.move(timestamp, scenario.move(player,deltaTime,timestamp,monster.code,events.gameOver, win))
-    monster.move(timestamp, scenario.move(monster,deltaTime,timestamp,player.code,events.gameOver), pathfinding, player, win)
-
-    nextLevel = scenario.nextLevel()
-    
-    scenario.draw(ctx,size_x,size_y,sqm,player.code,monster.code,win.code)
-
-    requestAnimationFrame(gameLoop)
 }
 
 gameLoop(0)
