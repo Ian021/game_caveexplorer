@@ -1,7 +1,8 @@
 import { platform } from "os"
 
 export class Player {
-    constructor(){
+    constructor(name){
+        this.name = name
         this.code = 2
         this.health = 100
         this.moving = false

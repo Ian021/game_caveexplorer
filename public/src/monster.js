@@ -3,10 +3,12 @@ export class Monster {
     constructor(path){
 
         this.allowMovement = true
+        this.level = 1
         this.path = path
         this.code = 3
         this.moving = false
         this.lastMove = 0
+        this.baseSpeed = 200
         this.speed = {
             module:200,
             x:0,
@@ -26,6 +28,10 @@ export class Monster {
         } else {
             this.allowMovement = true
         }
+    }
+
+    levelUp(level){
+        this.speed.module = this.baseSpeed - 1*(level-1)
     }
 
     move(timestamp,object,pathfinding,player){

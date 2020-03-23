@@ -10,6 +10,12 @@ export class Scenario {
 
         this.gameWon = false
         this.isGameOver = 0
+        this.level = 1
+        this.playerName = player.name
+    }
+
+    levelUp(level){
+        this.level = level
     }
 
     positionPlayer(player){
@@ -65,7 +71,7 @@ export class Scenario {
                 } else if (this.map.gridMap[creature.position.x+creature.speed.x][creature.position.y+creature.speed.y]===enemyCode &&
                     this.isGameOver === 0) {
                     this.isGameOver = 1
-                    return gameOver()
+                    return gameOver(this.playerName,this.level)
                 } else if (win && this.map.gridMap[creature.position.x+creature.speed.x][creature.position.y+creature.speed.y]===win.code &&
                     this.gameWon === false) {
                     this.gameWon = true

@@ -18,7 +18,7 @@ let {GAME_WIDTH, GAME_HEIGHT,size_x,size_y} = resolution.SQUARE_MOBILE
 
 let mapParameters = {density:0.15,dispersion:0.2,maxPropagation:0.5,minPropagation:0.05}
 
-let player = new Player()
+let player = new Player(new URL(window.location.href).searchParams.get("explorer"))
 let monster = new Monster()
 let win = new Win()
 
@@ -75,6 +75,8 @@ function gameLoop(timestamp){
         if(nextLevel && !resetGame){
             nextLevel = false
             level++
+            scenario.levelUp(level)
+            monster.levelUp(level)
             nextLevelText(level)
             setTimeout(()=>requestAnimationFrame(gameLoop),1000)
         } else {    
