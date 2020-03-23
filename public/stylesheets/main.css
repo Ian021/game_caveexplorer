@@ -197,6 +197,13 @@ h2 {
     margin-left: auto;
 }
 
+.ranking-item{
+    color: #EFEFEF;
+    font-weight: bold;
+    font-size: 15px;
+    list-style-type: none;
+}
+
 .ranking-play {
     margin-top: auto;
     grid-area: play;

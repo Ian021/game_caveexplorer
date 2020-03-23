@@ -2,10 +2,10 @@
 /* ------------------------------------- VARIABLES -------------------------------------*/
 
 const PORT = process.env.PORT || 3000;
-// const DB_CONNECTION_URL = process.env.DB_CONNECTION_URL
+const DB_CONNECTION_URL = process.env.DB_CONNECTION_URL
 
 /* ------------------------------------- LIBS -------------------------------------*/
-// const mongoose        = require('mongoose');
+const mongoose        = require('mongoose');
 const express         = require('express'),
       hbs             = require('express-handlebars'),
       bodyParser      = require('body-parser');
@@ -24,10 +24,10 @@ app.engine('hbs',hbs({extname: 'hbs'}));
 app.set('view engine', 'hbs');
 
 /* ------------------------------------- MONGOOSE -------------------------------------*/
-// mongoose.connect(DB_CONNECTION_URL,{
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true
-// })
+mongoose.connect(DB_CONNECTION_URL,{
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
 
 /* ------------------------------------- ROUTES -------------------------------------*/
 app.use(mainRoutes);
