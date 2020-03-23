@@ -8,9 +8,9 @@ export class Monster {
         this.code = 3
         this.moving = false
         this.lastMove = 0
-        this.baseSpeed = 200
+        this.baseSpeed = 500
         this.speed = {
-            module:200,
+            module:this.baseSpeed,
             x:0,
             y:0
         }
@@ -31,7 +31,12 @@ export class Monster {
     }
 
     levelUp(level){
-        this.speed.module = this.baseSpeed - 1*(level-1)
+        if (this.speed.module > 220){
+            this.speed.module -= 10*(level-1)*(level-1)
+        } else {
+            this.speed.module -= 5
+        }
+        console.log(this.speed)
     }
 
     move(timestamp,object,pathfinding,player){
