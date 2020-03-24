@@ -36,7 +36,6 @@ export class Monster {
         } else {
             this.speed.module -= 5
         }
-        console.log(this.speed)
     }
 
     move(timestamp,object,pathfinding,player){

@@ -77,6 +77,7 @@ function gameLoop(timestamp){
             level++
             scenario.levelUp(level)
             monster.levelUp(level)
+            player.levelUp(level)
             nextLevelText(level)
             setTimeout(()=>requestAnimationFrame(gameLoop),1000)
         } else {    

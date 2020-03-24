@@ -230,6 +230,10 @@ h2 {
     border-color:#999999;
 }
 
+.commands-power-using {
+    border-color: rgb(128, 64, 64);
+}
+
 .commands-move {
     grid-area: move;
     height: 144px;

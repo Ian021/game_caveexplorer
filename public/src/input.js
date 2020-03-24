@@ -2,9 +2,12 @@
 export class InputHandler{
     constructor(player,monster){
         this.gamePaused = false;
-        this.enableCommands();
         this.player = player
         this.monster = monster
+
+        this.powerStatus = 'NOT_USED'
+
+        this.enableCommands();
 
         document.addEventListener('keydown',this.spacebarPause.bind(this))
         document.addEventListener('keyup',()=>{this.move('STOP')})
@@ -13,9 +16,9 @@ export class InputHandler{
     enableCommands(){
         document.addEventListener('keydown',this.keyboardCommands.bind(this))
         document.querySelectorAll(".commands-move img").forEach(element => {element.classList.remove("commands-move-disabled")});
-        document.querySelector(".commands-power").classList.remove("commands-power-disabled")
         document.querySelector(".move-circle").classList.remove("move-circle-disabled")
         document.querySelector(".pause-text").classList.add("pause-text-hide")
+        this.powerControl('UNPAUSE')
     }
 
     spacebarPause() {
@@ -78,11 +81,42 @@ export class InputHandler{
             case 83:
                 this.move('DOWN')
                 break
+            case 17:
+                this.usePower()
         }
     }
 
     usePower() {
-        
+        this.player.usePower(this.powerControl,this)
+    }
+
+    powerControl(instruction) {
+        if (instruction === 'LEVEL_UP' || instruction === 'NOT_USED'){
+
+            this.powerStatus = 'NOT_USED'
+            document.querySelector(".commands-power").classList.remove("commands-power-disabled")
+            document.querySelector(".commands-power").classList.remove("commands-power-using")
+
+        } else if (instruction === 'POWER_END' || instruction === 'ALREADY_USED'){
+
+            this.powerStatus = 'ALREADY_USED'
+            document.querySelector(".commands-power").classList.remove("commands-power-using")
+            document.querySelector(".commands-power").classList.add("commands-power-disabled")
+
+        } else if (instruction === 'USING_POWER'){
+
+            this.powerStatus = 'USING_POWER'
+            document.querySelector(".commands-power").classList.add("commands-power-disabled")
+            document.querySelector(".commands-power").classList.add("commands-power-using")
+
+        } else if (instruction === 'PAUSE'){
+
+            document.querySelector(".commands-power").classList.remove("commands-power-using")
+            document.querySelector(".commands-power").classList.add("commands-power-disabled")
+
+        } else if (instruction === 'UNPAUSE'){
+            this.powerControl(this.powerStatus)
+        }
     }
 
     pause() {
@@ -104,8 +138,8 @@ export class InputHandler{
     disableCommands(){
         document.removeEventListener('keydown',this.keyboardCommands)
         document.querySelectorAll(".commands-move img").forEach(element => {element.classList.add("commands-move-disabled")});
-        document.querySelector(".commands-power").classList.add("commands-power-disabled")
         document.querySelector(".move-circle").classList.add("move-circle-disabled")
         document.querySelector(".pause-text").classList.remove("pause-text-hide")
+        this.powerControl('PAUSE')
     }
 }
