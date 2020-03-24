@@ -26,14 +26,21 @@ body {
     text-align: center;
     display: grid;
     vertical-align: middle;
-    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-columns: 1fr 4fr 1fr 1fr;
     grid-template-areas: 
-    ". title sound"
+    ". title sound github"
 }
 
-.navbar a {
+@media screen and (min-width: 420px) {
+    .navbar {
+        grid-template-columns: 100px 1fr 50px 50px;
+    }
+}
+
+.navbar .title {
     grid-area: title;
     text-decoration: none;
+    white-space: nowrap;
 }
 
 .navbar .toggle-sound {
@@ -44,6 +51,10 @@ body {
     content: url('/images/sound-on-white.svg');
     height:32px;
     margin-bottom: -4px;
+}
+
+.navbar .github{
+    grid-area: github;
 }
 
 .sound-off img {
@@ -68,7 +79,7 @@ h2 {
 .game-container {
     margin: auto;
     margin-top:26px;
-    width: 294px;;
+    width: 294px;
 }
 
 .start-container{
@@ -131,6 +142,26 @@ h2 {
     border-radius: 4px;
 }
 
+@media screen and (min-width: 768px) {
+    .game-container {
+        width: 680px;
+    }
+    .start-container{
+        height: 646px;
+        width: 646px;
+    }
+    .start-image{
+        height: 400px;
+    }
+    .form-text {
+        width:634px;
+    }
+    
+    .form-button {
+        width:646px;
+    }
+}
+
 .game-over{
     display: none;
 }
@@ -145,7 +176,7 @@ h2 {
 
 .play-pause {
     position: absolute;
-    top:78px;
+    top:82px;
     background-color: #07070700;
     height: 290px;
     width: 290px;
@@ -153,6 +184,17 @@ h2 {
     border-radius: 4px;
     z-index: 1;
     --paused:true;
+}
+
+@media screen and (min-width: 768px) {
+    .play-container{
+        height: 646px;
+        width: 646px;
+    }
+    .play-pause{
+        height: 646px;
+        width: 646px;
+    }   
 }
 
 .ranking-container {
@@ -207,6 +249,47 @@ h2 {
 .ranking-play {
     margin-top: auto;
     grid-area: play;
+}
+
+.ranking-text{
+    display: none;
+}
+
+.keyboard-control{
+    display: none;
+}
+
+@media screen and (min-width: 768px) {
+    .ranking-container{
+        height: 646px;
+        width: 646px;
+        grid-template-areas: 
+            "title title"
+            "ranking-left ranking-right"
+            "ranking-text ranking-text"
+            "play play"
+    }
+    .ranking-display-left {
+        width: 270px;
+        height:150px;
+        padding:15px;
+    }
+    .ranking-display-right {
+        width: 270px;
+        height:150px;
+        padding:15px;
+    }
+    .ranking-text{
+        grid-area: ranking-text;
+        background-color:#EFEFEF;
+        border:solid 2px #999999;
+        border-radius: 4px;
+        padding:15px;
+        display: block;
+    }
+    .keyboard-control{
+        display: block
+    }
 }
 
 .commands-container {

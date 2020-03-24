@@ -14,7 +14,15 @@ import { Events } from './events'
 import { Pathfinding } from './pathfinding'
 /*---------------------------------- ----------------------------------*/
 
-let {GAME_WIDTH, GAME_HEIGHT,size_x,size_y} = resolution.SQUARE_MOBILE
+let chosenResolution
+
+if(window.matchMedia('(min-width: 768px)').matches){
+    chosenResolution = resolution.SQUARE_TABLET
+} else {
+    chosenResolution = resolution.SQUARE_MOBILE
+}
+
+let {GAME_WIDTH, GAME_HEIGHT,size_x,size_y} = chosenResolution
 
 let mapParameters = {density:0.15,dispersion:0.2,maxPropagation:0.5,minPropagation:0.05}
 

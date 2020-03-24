@@ -12,6 +12,12 @@
                 <li class="ranking-item">{{this.score}} - {{this.player}}</li>
             {{/each}}
         </div>
+        <div class="ranking-text">
+            You lost! The creature got you and no one will ever know what happened to you. However,
+            since it's just a game, you can revive and try again!
+
+            {{>keyboardControls}}
+        </div>
         <div class="ranking-play">
             <input class="play-again" value="/play{{paramString}}" hidden>
             <form action="/play" method="GET">

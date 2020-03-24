@@ -44,7 +44,6 @@ export class Player {
     }
 
     move(timestamp,object) {
-        console.log(this.speed.module)
         if (object) {
             this.position = object.position;
             this.moving = object.moving;

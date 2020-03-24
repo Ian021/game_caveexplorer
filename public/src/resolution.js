@@ -1,15 +1,9 @@
 export const resolution = {
-    HD:{
-        GAME_WIDTH:1200,
-        GAME_HEIGHT:720,
+    SQUARE_TABLET:{
+        GAME_WIDTH:646,
+        GAME_HEIGHT:646,
         size_x:15,
-        size_y:9
-    },
-    FULLHD:{
-        GAME_WIDTH:1920,
-        GAME_HEIGHT:1080,
-        size_x:16,
-        size_y:9
+        size_y:15
     },
     SQUARE_MOBILE:{
         GAME_WIDTH:290,
