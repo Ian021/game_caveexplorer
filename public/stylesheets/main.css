@@ -244,6 +244,7 @@ h2 {
     font-weight: bold;
     font-size: 15px;
     list-style-type: none;
+    white-space: nowrap;
 }
 
 .ranking-play {
