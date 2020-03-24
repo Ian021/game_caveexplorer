@@ -27,7 +27,9 @@ export class Player {
         this.level = level
         this.speed.module = this.baseSpeed
         this.power.alreadyUsed = false
-        this.powerControl('LEVEL_UP')
+        if (this.powerControl){
+            this.powerControl('LEVEL_UP')
+        }
     }
 
     usePower(powerControl,inputHandler){
