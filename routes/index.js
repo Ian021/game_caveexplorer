@@ -1,5 +1,5 @@
 /* ------------------------------------- LIBS -------------------------------------*/
-const express         = require('express')
+const express       = require('express')
 const Ranking       = require('../models/ranking')
 
 
@@ -72,7 +72,7 @@ router.get('/', paramHandler, function(req,res) {
 })
 
 router.get('/play', paramHandler, function(req,res) {
-    return res.render('play')
+    return res.render('play', { csrfToken: req.csrfToken() })
 })
 
 router.get('/ranking', paramHandler, function(req,res) {

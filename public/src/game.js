@@ -13,7 +13,6 @@ import { InputHandler } from './input'
 import { Events } from './events'
 import { Pathfinding } from './pathfinding'
 /*---------------------------------- ----------------------------------*/
-
 let chosenResolution
 
 if(window.matchMedia('(min-width: 768px)').matches){
