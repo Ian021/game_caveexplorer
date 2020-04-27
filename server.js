@@ -11,7 +11,7 @@ const express         = require('express'),
       bodyParser      = require('body-parser'),
       cookieParser    = require('cookie-parser'),
       csurf           = require('csurf'),
-      dovenv          = require('dotenv')
+      dotenv          = require('dotenv').config()
 
 /* ------------------------------------- LOCAL FILES -------------------------------------*/
 const mainRoutes      = require('./routes'),
